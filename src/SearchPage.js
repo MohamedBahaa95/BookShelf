@@ -28,7 +28,7 @@ const SearchPage = ()=> {
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <Link to="/MainPage" className="close-search" >
+        <Link to="/" className="close-search" >
           Close
         </Link>
 
