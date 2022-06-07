@@ -1,36 +1,36 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import CreateCard from "./CreateCard";
 import * as BooksApi from "./BooksAPI"
 
-const SearchPage = ({SearchPageHandle})=> {  
+const SearchPage = ()=> {  
   const [results, setResults] =useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   const findBooks = async(value) => {
-    let res = await BooksApi.search(value);
+    let res = await BooksApi.search(value, "2");
 
-    if(res.error !== "empty query") { setResults(res); }
-    else{ setResults([]); }
-    console.log("results",res);
+    if(res.error === "empty query") { setResults([]); }
+    else{ setResults(res); }
   };
 
   const changeHandler = (event)=> {
     const {value} = event.target ;
     setSearchValue(value);
 
-    findBooks(value);
+    if(value !== "") {
+      findBooks(value);
+    }
+    else { setResults([]); }   
   };
 
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a
-          className="close-search"
-          onClick={SearchPageHandle}
-        >
+        <Link to="/MainPage" className="close-search" >
           Close
-        </a>
+        </Link>
 
         <div className="search-books-input-wrapper">
           <input
