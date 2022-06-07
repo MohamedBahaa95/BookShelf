@@ -1,0 +1,24 @@
+
+img-link-small  ; allBooks[0].imageLinks.smallThumbnail
+
+book-title ;    allBooks[0].title
+book-authers;   allBooks[0].authors
+
+book-subtitle;  allBooks[0].subtitle  
+book-shelf;     allBooks[0].shelf
+
+img-link-normal ; allBooks[0].imageLinks.smallThumbnail
+previewLink;
+description;    allBooks[0].description;
+infoLink;
+pageCount;
+language;
+publisher;
+publishedDate;
+categories[0];
+ratingsCount;
+maturityRating;
+averageRating;
+
+id;
+
