@@ -1,9 +1,8 @@
 
 import { Link } from "react-router-dom";
-import Shelfs from "./Shelfs";
+import CreateCard from "./CreateCard"
 
 const MainPage = ({allBooks, UpdateHandle}) => {
-  const shelfNames = [ "Want To Read", "Currently Reading", "Read", "None" ] ;
 
   return (
     <div className="list-books">
@@ -12,7 +11,48 @@ const MainPage = ({allBooks, UpdateHandle}) => {
       </div>
 
       <div className="list-books-content">
-        { shelfNames.map( shelf => <Shelfs allBooks={allBooks} Shelf={shelf} /> ) }
+        <div className="bookshelf">
+          <h2 className="bookshelf-title">Want To Read</h2>
+        
+          <div className="bookshelf-books">
+            <ol className="books-grid">
+              {allBooks.filter( (b) => b.shelf === "wantToRead").map( (book) => {
+                return (
+                  <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
+                )
+              } )}
+            </ol>
+          </div>
+        </div>
+
+        <div className="bookshelf">
+          <h2 className="bookshelf-title">Currently Reading</h2>
+        
+          <div className="bookshelf-books">
+            <ol className="books-grid">
+              {allBooks.filter( (b) => b.shelf === "currentlyReading").map( (book) => {
+                return (
+                  <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
+                )
+                })
+              }
+            </ol>
+          </div>
+        </div>
+
+        <div className="bookshelf">
+          <h2 className="bookshelf-title">Read</h2>
+        
+          <div className="bookshelf-books">
+            <ol className="books-grid">
+              {allBooks.filter( (b) => b.shelf === "read").map( (book) => {
+                return (
+                  <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
+                )
+              } )}
+            </ol>
+          </div>
+        </div>
       </div>
 
       <div className="open-search">
