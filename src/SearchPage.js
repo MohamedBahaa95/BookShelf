@@ -1,10 +1,11 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import allBooks from "./MainPage" ;
 import CreateCard from "./CreateCard";
 import * as BooksApi from "./BooksAPI"
 
-const SearchPage = ()=> {  
+const SearchPage = ({allBooks, UpdateHandle})=> {  
   const [results, setResults] =useState([]);
   const [searchValue, setSearchValue] = useState("");
 
@@ -12,7 +13,18 @@ const SearchPage = ()=> {
     let res = await BooksApi.search(value, "2");
 
     if(res.error === "empty query") { setResults([]); }
-    else{ setResults(res); }
+    else{ 
+      let filteredRes = res.filter( (f) =>  f.imageLinks !== undefined );
+
+      for(let b of allBooks) {
+        filteredRes.map( (book)=> {
+          if(b.id === book.id) { book.shelf = b.shelf; }
+          return ;
+        } )
+      };
+
+      setResults(filteredRes);
+    }
   };
 
   const changeHandler = (event)=> {
@@ -47,7 +59,7 @@ const SearchPage = ()=> {
         <ol className="books-grid">
           {results.map( (book) => {
             return (
-              <CreateCard key={book.id} Book={book} UpdateHandle={false} />
+              <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
             )
           } )}
         </ol>

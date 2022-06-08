@@ -1,27 +1,8 @@
-import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import CreateCard from "./CreateCard"
-import * as BooksApi from "./BooksAPI"
 
-const MainPage = () => {
-  const [allBooks, setAllBooks] = useState([]);
-
-  useEffect(() => {  
-    const getAllBooks = async() => {
-      let res = await BooksApi.getAll()
-      
-      setAllBooks(res);
-    };
-
-    getAllBooks();    
-
-  },[]);
-  
-  const bookUpdateHandle = (updatedBook)=> {
-    let updatedlist = allBooks.filter( (f)=>  f !== updatedBook );
-    
-    setAllBooks([...updatedlist, updatedBook]);
-  };
+const MainPage = ({allBooks, UpdateHandle}) => {
 
   return (
     <div className="list-books">
@@ -37,7 +18,7 @@ const MainPage = () => {
             <ol className="books-grid">
               {allBooks.filter( (b) => b.shelf === "wantToRead").map( (book) => {
                 return (
-                  <CreateCard key={book.id} Book={book} UpdateHandle={bookUpdateHandle} />
+                  <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
                 )
               } )}
             </ol>
@@ -51,7 +32,7 @@ const MainPage = () => {
             <ol className="books-grid">
               {allBooks.filter( (b) => b.shelf === "currentlyReading").map( (book) => {
                 return (
-                  <CreateCard key={book.id} Book={book} UpdateHandle={bookUpdateHandle} />
+                  <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
                 )
                 })
               }
@@ -66,7 +47,7 @@ const MainPage = () => {
             <ol className="books-grid">
               {allBooks.filter( (b) => b.shelf === "read").map( (book) => {
                 return (
-                  <CreateCard key={book.id} Book={book} UpdateHandle={bookUpdateHandle} />
+                  <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
                 )
               } )}
             </ol>

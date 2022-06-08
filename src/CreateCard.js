@@ -1,7 +1,7 @@
 
 import * as BooksApi from "./BooksAPI"
 
-const CreateCard = ({Book,UpdateHandle})=> {
+const CreateCard = ({Book, UpdateHandle})=> {
   const shelfNames = [ "Want To Read", "Currently Reading", "Read", "None" ] ;
   const shelfValues = ["wantToRead", "currentlyReading", "read"];
 
@@ -13,8 +13,7 @@ const CreateCard = ({Book,UpdateHandle})=> {
     let updatedBook = Book ;
     updatedBook.shelf = event.target.value;
 
-    if(!UpdateHandle) {  }
-    else { UpdateHandle(updatedBook); }
+    UpdateHandle(updatedBook); 
   }
   updateBookState()
 
@@ -34,7 +33,7 @@ const CreateCard = ({Book,UpdateHandle})=> {
           ></div>
 
           <div className="book-shelf-changer">
-            <select defaultValue={Book.shelf? Book.shelf : "None" } onChange={shelfChangeHandler} >
+            <select defaultValue={Book.shelf !== undefined? Book.shelf : "None" } onChange={shelfChangeHandler} >
               <option value="none" disabled> Move to... </option>
               { shelfNames.map( (name,i)=> {
                 return (
