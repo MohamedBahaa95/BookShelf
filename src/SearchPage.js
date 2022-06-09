@@ -18,7 +18,7 @@ const SearchPage = ({allBooks, UpdateHandle})=> {
       for(let b of allBooks) {
         filteredRes.map( (book)=> {
           if(b.id === book.id) { book.shelf = b.shelf; }
-          return ;
+          return book;
         } )
       };
 
