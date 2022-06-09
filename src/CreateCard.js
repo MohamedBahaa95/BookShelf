@@ -14,13 +14,13 @@ const CreateCard = ({Book, UpdateHandle})=> {
 
     const getUpdatedBook = async ()=> {
       let res = await BooksApi.get(Book.id);
-      console.log("get",res);
+      
       UpdateHandle(res);
     };
 
     const updateBookState = async ()=> {
-    let res = await BooksApi.update(Book, event.target.value);
-    console.log("update",res);
+    await BooksApi.update(Book, event.target.value);
+    
     };
     updateBookState().then( ()=> getUpdatedBook() );
 
