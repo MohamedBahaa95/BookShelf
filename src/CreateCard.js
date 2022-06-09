@@ -2,26 +2,33 @@
 import * as BooksApi from "./BooksAPI"
 
 const CreateCard = ({Book, UpdateHandle})=> {
-  const shelfNames = [ "Want To Read", "Currently Reading", "Read", "None" ] ;
-  const shelfValues = ["wantToRead", "currentlyReading", "read"];
+  const shelfs = [ 
+    {name: "Want To Read", value:"wantToRead"}, 
+    {name: "Currently Reading", value:"currentlyReading"},
+    {name: "Read", value:"read"} ,
+    {name: "None", value:"none"} 
+  ];
 
   const shelfChangeHandler = (event) => {
     event.preventDefault();
+
+    const getUpdatedBook = async ()=> {
+      let res = await BooksApi.get(Book.id);
+      console.log("get",res);
+      UpdateHandle(res);
+    };
+
     const updateBookState = async ()=> {
     let res = await BooksApi.update(Book, event.target.value);
-    
-    let updatedBook = Book ;
-    updatedBook.shelf = event.target.value;
-
-    UpdateHandle(updatedBook); 
-  }
-  updateBookState()
+    console.log("update",res);
+    };
+    updateBookState().then( ()=> getUpdatedBook() );
 
   console.log(`book ${Book.title} state changed from ${Book.shelf} to ${event.target.value}`);
   };
 
   return (
-    <li key={Book.id}>
+    <li>
       <div className="book">
         <div className="book-top">
           <div className="book-cover"
@@ -33,15 +40,15 @@ const CreateCard = ({Book, UpdateHandle})=> {
           ></div>
 
           <div className="book-shelf-changer">
-            <select defaultValue={Book.shelf !== undefined? Book.shelf : "None" } onChange={shelfChangeHandler} >
-              <option value="none" disabled> Move to... </option>
-              { shelfNames.map( (name,i)=> {
+            <select defaultValue={Book.shelf !== undefined? Book.shelf : "none"} onChange={shelfChangeHandler} >
+              <option value="None" disabled> Move to... </option>
+              { shelfs.map( (shelf, i)=> {
                 return (
                   <option 
-                    value={shelfValues[i]}
-                    key={name}
+                    value={shelf.value}
+                    key={i}
                   >
-                      {name}
+                    {shelf.name}
                   </option>
                 )} 
               )}

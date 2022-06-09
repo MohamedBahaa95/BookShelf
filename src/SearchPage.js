@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import allBooks from "./MainPage" ;
 import CreateCard from "./CreateCard";
 import * as BooksApi from "./BooksAPI"
 
@@ -57,7 +56,7 @@ const SearchPage = ({allBooks, UpdateHandle})=> {
 
       <div className="search-books-results">
         <ol className="books-grid">
-          {results.map( (book) => {
+          {searchValue && results.map( (book) => {
             return (
               <CreateCard key={book.id} Book={book} UpdateHandle={UpdateHandle} />
             )

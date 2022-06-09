@@ -22,9 +22,12 @@ const App = ()=> {
   },[]);
   
   const bookUpdateHandle = (updatedBook)=> {
-    let updatedlist = allBooks.filter( (f)=>  f !== updatedBook );
-    
-    setAllBooks([...updatedlist, updatedBook]);
+    console.log("before mod",allBooks)
+    let updatedList = allBooks.filter( book=> book.id !== updatedBook.id );
+
+    if(updatedBook.shelf !== undefined) { updatedList = [...updatedList, updatedBook] };
+    console.log("mod",updatedList)
+    setAllBooks(updatedList);
   };
 
   return (
